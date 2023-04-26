@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 
-import DocumentPicker from "react-native-document-picker";
-import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+//import DocumentPicker from "react-native-document-picker";
+//import { useFonts } from "expo-font";
+//import AppLoading from "expo-app-loading";
 
 import {
   StyleSheet,
   Text,
   View,
   ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
+  //TextInput,
+  //TouchableOpacity,
+  //Platform,
+  //KeyboardAvoidingView,
+  //Keyboard,
+  //TouchableWithoutFeedback,
 } from "react-native";
 
 export default function RegistrationScreen() {
@@ -22,9 +22,10 @@ export default function RegistrationScreen() {
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={require("../assets/img/main-bg.png")}
+        source={require("../assets/img/mainBg.jpg")}
       >
-        <View>style={styles.registerForm}</View>
+        {/* <View style={styles.registerForm}></View> */}
+        {/* <Text>hi</Text> */}
       </ImageBackground>
     </View>
   );
