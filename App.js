@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import RegistrationScreen from "./screens/RegistrationScreen";
 //import LoginScreen from "./screens/LoginScreen.js";
+//import LoginScreen from "./screens/LoginScreen.js";
 
 export default function App() {
   return (
