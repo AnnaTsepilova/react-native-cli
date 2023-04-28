@@ -33,8 +33,8 @@ export default function App() {
         resizeMode="cover"
         style={styles.background}
       >
-        {/* <RegistrationScreen /> */}
-        <LoginScreen />
+        <RegistrationScreen />
+        {/* <LoginScreen /> */}
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
