@@ -13,11 +13,12 @@ import {
 } from "react-native";
 
 const initialState = {
+  name: "",
   email: "",
   password: "",
 };
 
-export default function LoginScreen() {
+export default function RegistrationScreen({ navigation }) {
   const [state, setState] = useState(initialState);
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
 
@@ -41,9 +42,20 @@ export default function LoginScreen() {
           }}
         >
           <View style={styles.avatarContainer}></View>
-          <Text style={styles.formTitle}>Sign In</Text>
+          <Text style={styles.formTitle}>Registration</Text>
 
           <View style={styles.form}>
+            {/* name */}
+            <TextInput
+              style={styles.input}
+              placeholder="Login"
+              placeholderTextColor="#BDBDBD"
+              value={state.name}
+              onFocus={() => setIsShownKeyboard(true)}
+              onChangeText={(value) =>
+                setState((prevState) => ({ ...prevState, name: value }))
+              }
+            />
             <TextInput
               style={styles.input}
               placeholder="Email"
@@ -70,10 +82,16 @@ export default function LoginScreen() {
               activeOpacity={0.8}
               onPress={keyboardHide}
             >
-              <Text style={styles.btnTitle}>SIGN IN</Text>
+              <Text style={styles.btnTitle}>SIGN UP</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.signUp}>Sign Up</Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Text style={styles.signIn}>
+                Have an account?
+                <Text style={styles.signIn}> Sign In</Text>
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -154,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  signUp: {
+  signIn: {
     fontFamily: "RobotoRegular",
     color: "#1B4371",
     fontSize: 16,

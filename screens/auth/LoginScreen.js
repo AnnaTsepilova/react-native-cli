@@ -13,12 +13,11 @@ import {
 } from "react-native";
 
 const initialState = {
-  name: "",
   email: "",
   password: "",
 };
 
-export default function RegistrationScreen() {
+export default function LoginScreen({ navigation }) {
   const [state, setState] = useState(initialState);
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
 
@@ -42,20 +41,9 @@ export default function RegistrationScreen() {
           }}
         >
           <View style={styles.avatarContainer}></View>
-          <Text style={styles.formTitle}>Registration</Text>
+          <Text style={styles.formTitle}>Sign In</Text>
 
           <View style={styles.form}>
-            {/* name */}
-            <TextInput
-              style={styles.input}
-              placeholder="Login"
-              placeholderTextColor="#BDBDBD"
-              value={state.name}
-              onFocus={() => setIsShownKeyboard(true)}
-              onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, name: value }))
-              }
-            />
             <TextInput
               style={styles.input}
               placeholder="Email"
@@ -82,10 +70,18 @@ export default function RegistrationScreen() {
               activeOpacity={0.8}
               onPress={keyboardHide}
             >
-              <Text style={styles.btnTitle}>SIGN UP</Text>
+              <Text style={styles.btnTitle}>SIGN IN</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.signIn}>Sign In</Text>
+            <TouchableOpacity
+              style={{ alignSelf: "center" }}
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Registration")}
+            >
+              <Text style={styles.signUp}>
+                {" "}
+                New to application?
+                <Text style={styles.signUp}> Sign Up</Text>
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -166,7 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  signIn: {
+  signUp: {
     fontFamily: "RobotoRegular",
     color: "#1B4371",
     fontSize: 16,
