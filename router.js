@@ -1,13 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { TouchableOpacity } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-
-import { TouchableOpacity } from "react-native";
 
 import RegistrationScreen from "./screens/auth/RegistrationScreen";
 import LoginScreen from "./screens/auth/LoginScreen";
@@ -18,13 +17,12 @@ import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./screens/mainScreen/ProfileScreen";
 
 const AuthStack = createStackNavigator();
-//const Stack = createStackNavigator();
 const MainTabs = createBottomTabNavigator();
 
 export const useRoute = (Auth) => {
   if (!Auth) {
     return (
-      <AuthStack.Navigator initialRouteName="LoginScreen">
+      <AuthStack.Navigator initialRouteName="Login">
         <AuthStack.Screen
           name="Login"
           component={LoginScreen}
@@ -44,13 +42,6 @@ export const useRoute = (Auth) => {
     );
   }
   return (
-    // <AuthStack.Navigator>
-    //   <AuthStack.Screen
-    //     name="Home"
-    //     component={Home}
-    //     options={{ title: "Start screen", headerShown: false }}
-    //   />
-    // </AuthStack.Navigator>
     <MainTabs.Navigator
       screenOptions={{
         tabBarShowLabel: false,
@@ -59,7 +50,6 @@ export const useRoute = (Auth) => {
           paddingTop: 9,
           paddingRight: 70,
           paddingLeft: 70,
-          //borderTopColor:
         },
         tabBarItemStyle: {
           width: 70,
@@ -113,7 +103,6 @@ export const useRoute = (Auth) => {
           ),
           headerTitleAlign: "center",
           headerTitleStyle: {
-            // marginBottom: 11,
             fontFamily: "RobotoMedium",
             fontSize: 17,
             lineHeight: 22,
