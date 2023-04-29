@@ -1,23 +1,56 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 
+import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { TouchableOpacity } from "react-native";
 
-import PostsScreen from "./mainScreen/PostsScreen";
-import CreatePostsScreen from "./mainScreen/CreatePostsScreen";
-import ProfileScreen from "./mainScreen/ProfileScreen";
+import RegistrationScreen from "./screens/auth/RegistrationScreen";
+import LoginScreen from "./screens/auth/LoginScreen";
+import Home from "./screens/Home";
 
-//const Tabs = createBottomTabNavigator();
+import PostsScreen from "./screens/mainScreen/PostsScreen";
+import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
+import ProfileScreen from "./screens/mainScreen/ProfileScreen";
+
+const AuthStack = createStackNavigator();
+//const Stack = createStackNavigator();
 const MainTabs = createBottomTabNavigator();
 
-export default function Home({ navigation }) {
+export const useRoute = (Auth) => {
+  if (!Auth) {
+    return (
+      <AuthStack.Navigator initialRouteName="LoginScreen">
+        <AuthStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <AuthStack.Screen
+          name="Registration"
+          component={RegistrationScreen}
+          options={{ headerShown: false }}
+        />
+        <AuthStack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "Start screen", headerShown: false }}
+        />
+      </AuthStack.Navigator>
+    );
+  }
   return (
+    // <AuthStack.Navigator>
+    //   <AuthStack.Screen
+    //     name="Home"
+    //     component={Home}
+    //     options={{ title: "Start screen", headerShown: false }}
+    //   />
+    // </AuthStack.Navigator>
     <MainTabs.Navigator
       screenOptions={{
         tabBarShowLabel: false,
@@ -112,12 +145,4 @@ export default function Home({ navigation }) {
       />
     </MainTabs.Navigator>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+};

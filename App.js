@@ -1,57 +1,16 @@
 import React, { useState, useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
+import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { StyleSheet, View, ImageBackground } from "react-native";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import RegistrationScreen from "./screens/auth/RegistrationScreen";
-import LoginScreen from "./screens/auth/LoginScreen.js";
-import Home from "./screens/Home.js";
-
-import PostsScreen from "./screens/mainScreen/PostsScreen";
-import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
-import ProfileScreen from "./screens/mainScreen/ProfileScreen";
+import { useRoute } from "./router";
 
 SplashScreen.preventAutoHideAsync();
-
-const AuthStack = createStackNavigator();
-const MainTabs = createBottomTabNavigator();
-
-const useRoute = (Auth) => {
-  if (!Auth) {
-    return (
-      <AuthStack.Navigator initialRouteName="LoginScreen">
-        <AuthStack.Screen
-          name="Registration"
-          component={RegistrationScreen}
-          options={{ headerShown: false }}
-        />
-        <AuthStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <AuthStack.Screen
-          name="Home"
-          component={Home}
-          options={{ title: "Start screen", headerShown: false }}
-        />
-      </AuthStack.Navigator>
-    );
-  }
-  return (
-    <MainTabs.Navigator>
-      <MainTabs.Screen name="Posts" component={PostsScreen} />
-      <MainTabs.Screen name="Create" component={CreatePostsScreen} />
-      <MainTabs.Screen name="Profile" component={ProfileScreen} />
-    </MainTabs.Navigator>
-  );
-};
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -69,7 +28,7 @@ export default function App() {
     return null;
   }
 
-  const routing = useRoute(null);
+  const routing = useRoute({});
 
   return (
     <NavigationContainer>

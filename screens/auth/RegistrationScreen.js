@@ -12,6 +12,8 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+//import { useRoute } from "../../router";
+
 const initialState = {
   name: "",
   email: "",
@@ -27,6 +29,12 @@ export default function RegistrationScreen({ navigation }) {
     Keyboard.dismiss();
     console.log(state);
     setState(initialState);
+  };
+
+  const handleSubmit = () => {
+    console.log(state);
+    setState(initialState);
+    //useRoute(true);
   };
 
   return (
@@ -45,7 +53,6 @@ export default function RegistrationScreen({ navigation }) {
           <Text style={styles.formTitle}>Registration</Text>
 
           <View style={styles.form}>
-            {/* name */}
             <TextInput
               style={styles.input}
               placeholder="Login"
@@ -80,7 +87,9 @@ export default function RegistrationScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.8}
-              onPress={keyboardHide}
+              // onPress={keyboardHide}
+              // onPress={() => handleSubmit(navigation.navigate("Home"))}
+              onPress={handleSubmit}
             >
               <Text style={styles.btnTitle}>SIGN UP</Text>
             </TouchableOpacity>

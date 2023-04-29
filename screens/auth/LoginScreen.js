@@ -12,6 +12,8 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+//import { useRoute } from "../../router";
+
 const initialState = {
   email: "",
   password: "",
@@ -24,8 +26,15 @@ export default function LoginScreen({ navigation }) {
   const keyboardHide = () => {
     setIsShownKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(initialState);
+  };
+
+  const handleSubmit = () => {
+    console.log("Form Data:", state);
+    setState({
+      email: "",
+      password: "",
+    });
+    //useRoute(true);
   };
 
   return (
@@ -68,7 +77,8 @@ export default function LoginScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.8}
-              onPress={keyboardHide}
+              // onPress={keyboardHide}
+              onPress={handleSubmit}
             >
               <Text style={styles.btnTitle}>SIGN IN</Text>
             </TouchableOpacity>
