@@ -12,13 +12,15 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+//import { useRoute } from "../../router";
+
 const initialState = {
   name: "",
   email: "",
   password: "",
 };
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) {
   const [state, setState] = useState(initialState);
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
 
@@ -27,6 +29,12 @@ export default function RegistrationScreen() {
     Keyboard.dismiss();
     console.log(state);
     setState(initialState);
+  };
+
+  const handleSubmit = () => {
+    console.log(state);
+    setState(initialState);
+    //useRoute(true);
   };
 
   return (
@@ -45,7 +53,6 @@ export default function RegistrationScreen() {
           <Text style={styles.formTitle}>Registration</Text>
 
           <View style={styles.form}>
-            {/* name */}
             <TextInput
               style={styles.input}
               placeholder="Login"
@@ -80,12 +87,20 @@ export default function RegistrationScreen() {
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.8}
-              onPress={keyboardHide}
+              // onPress={keyboardHide}
+              // onPress={() => handleSubmit(navigation.navigate("Home"))}
+              onPress={handleSubmit}
             >
               <Text style={styles.btnTitle}>SIGN UP</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.signIn}>Sign In</Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Text style={styles.signIn}>
+                Have an account?
+                <Text style={styles.signIn}> Sign In</Text>
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
