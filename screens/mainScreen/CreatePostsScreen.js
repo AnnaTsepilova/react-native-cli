@@ -48,11 +48,6 @@ const CreatePostsScreen = ({ navigation }) => {
     console.log("coordinates", coordinates);
   };
 
-  // const onSubmit = async () => {
-  //   console.log("navigation", navigation);
-  //   navigation.navigate("Posts", { photo });
-  // };
-
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -77,7 +72,7 @@ const CreatePostsScreen = ({ navigation }) => {
     // };
     // console.log("coords", coords);
     console.log("navigation", navigation);
-    navigation.navigate("Posts", { photo });
+    navigation.navigate("NestedPosts", { photo });
     //await uploadPost(coords);
     setTitle("");
     setPhoto("");

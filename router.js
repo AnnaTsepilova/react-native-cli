@@ -12,6 +12,9 @@ import RegistrationScreen from "./screens/auth/RegistrationScreen";
 import LoginScreen from "./screens/auth/LoginScreen";
 import Home from "./screens/Home";
 
+import CommentsScreen from "./screens/nestedScreens/CommentsScreen";
+import MapScreen from "./screens/nestedScreens/MapScreen";
+
 import PostsScreen from "./screens/mainScreen/PostsScreen";
 import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./screens/mainScreen/ProfileScreen";
@@ -36,6 +39,16 @@ export const useRoute = (Auth) => {
         <AuthStack.Screen
           name="Home"
           component={Home}
+          options={{ title: "Start screen", headerShown: false }}
+        />
+        <AuthStack.Screen
+          name="Comments"
+          component={CommentsScreen}
+          options={{ title: "Start screen", headerShown: false }}
+        />
+        <AuthStack.Screen
+          name="Map"
+          component={MapScreen}
           options={{ title: "Start screen", headerShown: false }}
         />
       </AuthStack.Navigator>
