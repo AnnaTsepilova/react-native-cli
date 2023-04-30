@@ -9,13 +9,13 @@ const MapScreen = ({ navigation }) => {
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
-          longitude: 30.486715,
-          latitude: 50.487579,
-          latitudeDelta: "",
-          longitudeDelta: "",
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
         }}
       >
-        <Marker coordinate={{ longitude: 30.486715, latitude: 50.487579 }} />
+        <Marker coordinate={{ longitude: -122.4324, latitude: 37.78825 }} />
       </MapView>
     </View>
   );

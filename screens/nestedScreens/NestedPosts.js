@@ -11,9 +11,9 @@ import {
 import { EvilIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
-const NestedPosts = ({ route }) => {
+const NestedPosts = ({ route, navigation }) => {
   const [posts, setPosts] = useState([]);
-  console.log("route.params", route.params);
+  // console.log("route.params", route.params);
 
   useEffect(() => {
     if (route.params) {
