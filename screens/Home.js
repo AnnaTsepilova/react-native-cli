@@ -1,5 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+//import { createNativeStackNavigator } from "@react-navigation/native-stack";
+//import { createStackNavigator } from "@react-navigation/stack";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -13,11 +16,50 @@ import PostsScreen from "./mainScreen/PostsScreen";
 import CreatePostsScreen from "./mainScreen/CreatePostsScreen";
 import ProfileScreen from "./mainScreen/ProfileScreen";
 
-//const Tabs = createBottomTabNavigator();
+import CommentsScreen from "./nestedScreens/CommentsScreen";
+import MapScreen from "./nestedScreens/MapScreen";
+
+//const NestedScreen = createStackNavigator();
 const MainTabs = createBottomTabNavigator();
 
 export default function Home({ navigation }) {
   return (
+    // <NestedScreen.Navigator>
+    //   <NestedScreen.Screen
+    //     name="NestedPosts"
+    //     component={PostsScreen}
+    //     options={{
+    //       headerShown: false,
+    //     }}
+    //   />
+    //   <NestedScreen.Screen
+    //     name="Comments"
+    //     component={CommentsScreen}
+    //     options={{
+    //       headerTitleAlign: "center",
+    //       headerTitleStyle: {
+    //         fontSize: 17,
+    //         lineHeight: 22,
+    //         color: "#212121",
+    //         fontFamily: "RobotoMedium",
+    //       },
+    //     }}
+    //   />
+    //   <NestedScreen.Screen
+    //     name="Map"
+    //     component={MapScreen}
+    //     options={{
+    //       headerTitleAlign: "center",
+    //       headerTitleStyle: {
+    //         fontSize: 17,
+    //         lineHeight: 22,
+    //         color: "#212121",
+    //         fontFamily: "RobotoMedium",
+    //       },
+    //     }}
+    //   />
+    // </NestedScreen.Navigator>
+
     <MainTabs.Navigator
       screenOptions={{
         tabBarShowLabel: false,
@@ -40,6 +82,7 @@ export default function Home({ navigation }) {
     >
       <MainTabs.Screen
         options={{
+          //headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <AntDesign
               name="appstore-o"
@@ -47,7 +90,6 @@ export default function Home({ navigation }) {
               color={focused ? "#ffffff" : "#BDBDBD"}
             />
           ),
-
           headerRight: () => (
             <TouchableOpacity style={{ marginRight: 16 }} activeOpacity={0.8}>
               <MaterialIcons name="logout" size={24} color="#BDBDBD" />
