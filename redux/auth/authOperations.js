@@ -24,12 +24,13 @@ export const signUp = createAsyncThunk(
 
       console.log("auth.currentUser from signUp operations", auth.currentUser);
 
-      // const url = data.avatar && (await uploadPhoto(data.avatar, "avatars", uid));
+      const url =
+        data.avatar && (await uploadPhoto(data.avatar, "avatars", uid));
 
-      // await updateProfile(auth.currentUser, {
-      //   displayName: data.nickname,
-      //   photoURL: url,
-      // });
+      await updateProfile(auth.currentUser, {
+        displayName: data.nickname,
+        photoURL: url,
+      });
       const { email, displayName, photoURL } = auth.currentUser;
 
       return { email, displayName, uid, photoURL };
@@ -46,7 +47,47 @@ export const signIn = createAsyncThunk(
       await signInWithEmailAndPassword(auth, data.email, data.password);
       const { email, displayName, uid, photoURL } = auth.currentUser;
       console.log("auth.currentUser", auth.currentUser);
-      return { email, displayName, uid, photoURL };
+      return { uid, email, displayName, photoURL };
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error.message", error.message);
+    }
+  }
+);
+
+export const signOutUser = createAsyncThunk(
+  "auth/signOut",
+  async (_, thunkAPI) => {
+    try {
+      signOut(auth);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error.message", error.message);
+    }
+  }
+);
+
+export const isLoggedIn = createAsyncThunk(
+  "auth/isLoggedIn",
+  async (_, thunkAPI) => {
+    try {
+      let id;
+      let email;
+      let displayName;
+      let avatar;
+
+      await onAuthStateChanged(auth, (user) => {
+        console.log("Auth state changed:", user);
+
+        if (user) {
+          id = user.uid;
+          email = user.email;
+          displayName = user.displayName;
+          avatar = user.photoURL;
+        }
+      });
+      if (!email) {
+        return thunkAPI.rejectWithValue("error.message", error.message);
+      }
+      return { displayName, email, avatar, id };
     } catch (error) {
       return thunkAPI.rejectWithValue("error.message", error.message);
     }

@@ -12,8 +12,10 @@ import { useRoute } from "./router";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
+
+import Main from "./components/Main";
 
 SplashScreen.preventAutoHideAsync();
 
