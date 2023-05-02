@@ -12,8 +12,10 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+//import { signUp } from "../../redux/auth/authOperations";
+
 const initialState = {
-  name: "",
+  nickname: "",
   email: "",
   password: "",
 };
@@ -55,10 +57,10 @@ export default function RegistrationScreen({ navigation }) {
               style={styles.input}
               placeholder="Login"
               placeholderTextColor="#BDBDBD"
-              value={state.name}
+              value={state.nickname}
               onFocus={() => setIsShownKeyboard(true)}
               onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, name: value }))
+                setState((prevState) => ({ ...prevState, nickname: value }))
               }
             />
             <TextInput

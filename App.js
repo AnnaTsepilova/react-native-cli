@@ -10,6 +10,9 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { useRoute } from "./router";
 
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -28,21 +31,23 @@ export default function App() {
     return null;
   }
 
-  const routing = useRoute(null);
+  const routing = useRoute(false);
 
   return (
-    <NavigationContainer>
-      <View style={styles.container} onLayout={onLayoutRootView}>
-        <ImageBackground
-          source={require("./assets/img/mainBg.jpg")}
-          resizeMode="cover"
-          style={styles.background}
-        >
-          {routing}
-          <StatusBar style="auto" />
-        </ImageBackground>
-      </View>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <View style={styles.container} onLayout={onLayoutRootView}>
+          <ImageBackground
+            source={require("./assets/img/mainBg.jpg")}
+            resizeMode="cover"
+            style={styles.background}
+          >
+            {routing}
+            <StatusBar style="auto" />
+          </ImageBackground>
+        </View>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
