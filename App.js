@@ -10,12 +10,21 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { useRoute } from "./router";
 
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    setUser(user);
+  });
+
   const [fontsLoaded] = useFonts({
     RobotoRegular: require("./assets/fonts/Roboto-Regular.ttf"),
     RobotoMedium: require("./assets/fonts/Roboto-Medium.ttf"),
@@ -31,7 +40,7 @@ export default function App() {
     return null;
   }
 
-  const routing = useRoute(false);
+  const routing = useRoute(user);
 
   return (
     <Provider store={store}>
@@ -55,6 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    height: "100%",
   },
 
   background: {

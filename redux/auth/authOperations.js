@@ -19,17 +19,34 @@ export const signUp = createAsyncThunk(
         data.email,
         data.password
       );
-      console.log("user from signUp operations", user);
-      // const { uid } = auth.currentUser;
+
+      const { uid } = auth.currentUser;
+
+      console.log("auth.currentUser from signUp operations", auth.currentUser);
+
       // const url = data.avatar && (await uploadPhoto(data.avatar, "avatars", uid));
 
       // await updateProfile(auth.currentUser, {
       //   displayName: data.nickname,
       //   photoURL: url,
       // });
-      // const { email, displayName, photoURL } = auth.currentUser;
+      const { email, displayName, photoURL } = auth.currentUser;
 
-      // return { email, displayName, uid, photoURL };
+      return { email, displayName, uid, photoURL };
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error.message", error.message);
+    }
+  }
+);
+
+export const signIn = createAsyncThunk(
+  "auth/signIn",
+  async (data, thunkAPI) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      const { email, displayName, uid, photoURL } = auth.currentUser;
+      console.log("auth.currentUser", auth.currentUser);
+      return { email, displayName, uid, photoURL };
     } catch (error) {
       return thunkAPI.rejectWithValue("error.message", error.message);
     }

@@ -12,14 +12,19 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+import { signIn } from "../../redux/auth/authOperations";
+
 const initialState = {
   email: "",
   password: "",
 };
 
 export default function LoginScreen({ navigation }) {
-  const [state, setState] = useState(initialState);
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
+  const [state, setState] = useState(initialState);
+
+  const dispatch = useDispatch();
 
   const keyboardHide = () => {
     setIsShownKeyboard(false);
@@ -27,9 +32,10 @@ export default function LoginScreen({ navigation }) {
   };
 
   const onSubmit = () => {
-    console.log("Form Data:", state);
+    console.log("submit LoginScreen", state);
+    dispatch(signIn(state));
     setState(initialState);
-    navigation.navigate("Home");
+    //navigation.navigate("Home");
   };
 
   return (

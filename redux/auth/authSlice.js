@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import {
+  signUp,
+  signIn,
+  isLoggedIn,
+  logOut,
+  changeAvatar,
+} from "./authOperations";
+
 const initialState = {
   id: "",
   email: "",
@@ -14,39 +22,39 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   extraReducers: (builder) => {
-    builder;
-    //   .addCase(signUp.pending, (state) => {
-    //     state.isLoading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(signUp.fulfilled, (state, { payload }) => {
-    //     state.isLoading = false;
-    //     state.isAuth = true;
-    //     state.email = payload.email;
-    //     state.nickname = payload.displayName;
-    //     state.id = payload.uid;
-    //     state.avatar = payload.photoURL;
-    //   })
-    //   .addCase(signUp.rejected, (state, { payload }) => {
-    //     state.isLoading = false;
-    //     state.error = payload;
-    //   });
-    //   .addCase(signIn.pending, (state) => {
-    //     state.isLoading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(signIn.fulfilled, (state, { payload }) => {
-    //     state.isLoading = false;
-    //     state.isAuth = true;
-    //     state.email = payload.email;
-    //     state.nickname = payload.displayName;
-    //     state.id = payload.uid;
-    //     state.avatar = payload.photoURL;
-    //   })
-    //   .addCase(signIn.rejected, (state, { payload }) => {
-    //     state.isLoading = false;
-    //     state.error = payload;
-    //   })
+    builder
+      .addCase(signUp.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(signUp.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.id = action.payload.uid;
+        state.email = action.payload.email;
+        state.nickname = action.payload.displayName;
+        state.avatar = action.payload.photoURL;
+        state.isAuth = true;
+      })
+      .addCase(signUp.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(signIn.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(signIn.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuth = true;
+        state.id = action.payload.uid;
+        state.email = action.payload.email;
+        state.nickname = action.payload.displayName;
+        state.avatar = action.payload.photoURL;
+      })
+      .addCase(signIn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
     //   .addCase(isLoggedIn.pending, (state) => {
     //     state.isLoading = true;
     //     state.error = null;

@@ -13,13 +13,13 @@ import {
 } from "@env";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA-ZoTwCMHNYktWbj9SUpCUBKq_hGqk4zA",
-  authDomain: "react-nativ-hw.firebaseapp.com",
-  projectId: "react-nativ-hw",
-  storageBucket: "react-nativ-hw.appspot.com",
-  messagingSenderId: "80154841166",
-  appId: "1:80154841166:web:12bfdcc66ce7b58547331f",
-  measurementId: "G-9PE5MCF1W1",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
 // Initialize Firebase

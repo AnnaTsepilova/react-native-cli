@@ -12,7 +12,8 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-//import { signUp } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/auth/authOperations";
 
 const initialState = {
   nickname: "",
@@ -21,20 +22,22 @@ const initialState = {
 };
 
 export default function RegistrationScreen({ navigation }) {
-  const [state, setState] = useState(initialState);
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
+  const [state, setState] = useState(initialState);
+
+  const dispatch = useDispatch();
 
   const keyboardHide = () => {
     setIsShownKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(initialState);
   };
 
   const onSubmit = () => {
-    console.log("Form Data:", state);
+    console.log("submit RegistrationScreen", state);
+
+    dispatch(signUp(state));
     setState(initialState);
-    navigation.navigate("Home");
+    //navigation.navigate("Home");
   };
 
   return (
