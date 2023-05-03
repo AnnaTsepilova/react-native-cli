@@ -21,6 +21,16 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers: {
+    getCurrentUser: (state, action) => {
+      state.isLoading = false;
+      state.id = action.payload.uid;
+      state.email = action.payload.email;
+      state.nickname = action.payload.displayName;
+      state.avatar = action.payload.photoURL;
+      state.isAuth = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signUp.pending, (state) => {
@@ -63,10 +73,10 @@ const authSlice = createSlice({
       .addCase(signOutUser.fulfilled, (state) => {
         state.isLoading = false;
         state.isAuth = false;
-        state.avatar = "";
-        state.email = "";
-        state.id = "";
-        state.nickname = "";
+        state.avatar = null;
+        state.email = null;
+        state.id = null;
+        state.nickname = null;
       })
       .addCase(signOutUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -103,4 +113,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { getCurrentUser } = authSlice.actions;
 export const authReducer = authSlice.reducer;

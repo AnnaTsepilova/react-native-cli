@@ -11,13 +11,13 @@ import { selectIsAuth } from "../redux/auth/authSelectors";
 
 export default function Main() {
   const dispatch = useDispatch();
-  const user = useSelector(selectIsAuth);
+  const isAuth = useSelector(selectIsAuth);
 
   useEffect(() => {
     dispatch(isLoggedIn());
   }, []);
 
-  const routing = useRoute(user);
+  const routing = useRoute(isAuth);
 
   return (
     <NavigationContainer>
