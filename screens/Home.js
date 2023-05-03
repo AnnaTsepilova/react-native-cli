@@ -16,50 +16,10 @@ import PostsScreen from "./mainScreen/PostsScreen";
 import CreatePostsScreen from "./mainScreen/CreatePostsScreen";
 import ProfileScreen from "./mainScreen/ProfileScreen";
 
-import CommentsScreen from "./nestedScreens/CommentsScreen";
-import MapScreen from "./nestedScreens/MapScreen";
-
-//const NestedScreen = createStackNavigator();
 const MainTabs = createBottomTabNavigator();
 
 export default function Home({ navigation }) {
   return (
-    // <NestedScreen.Navigator>
-    //   <NestedScreen.Screen
-    //     name="NestedPosts"
-    //     component={PostsScreen}
-    //     options={{
-    //       headerShown: false,
-    //     }}
-    //   />
-    //   <NestedScreen.Screen
-    //     name="Comments"
-    //     component={CommentsScreen}
-    //     options={{
-    //       headerTitleAlign: "center",
-    //       headerTitleStyle: {
-    //         fontSize: 17,
-    //         lineHeight: 22,
-    //         color: "#212121",
-    //         fontFamily: "RobotoMedium",
-    //       },
-    //     }}
-    //   />
-    //   <NestedScreen.Screen
-    //     name="Map"
-    //     component={MapScreen}
-    //     options={{
-    //       headerTitleAlign: "center",
-    //       headerTitleStyle: {
-    //         fontSize: 17,
-    //         lineHeight: 22,
-    //         color: "#212121",
-    //         fontFamily: "RobotoMedium",
-    //       },
-    //     }}
-    //   />
-    // </NestedScreen.Navigator>
-
     <MainTabs.Navigator
       screenOptions={{
         tabBarShowLabel: false,

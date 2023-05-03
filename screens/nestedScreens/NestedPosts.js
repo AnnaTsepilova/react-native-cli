@@ -87,13 +87,10 @@ const NestedPosts = ({ route, navigation }) => {
                 <TouchableOpacity
                   style={{ flexDirection: "row", alignItems: "center" }}
                   onPress={() =>
-                    navigation.navigate(
-                      "Comments"
-                      //   , {
-                      //   postId: item.postId,
-                      //   uri: item.photo,
-                      // }
-                    )
+                    navigation.navigate("Comments", {
+                      postId: item.postId,
+                      uri: item.photo,
+                    })
                   }
                 >
                   <EvilIcons

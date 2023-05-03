@@ -12,9 +12,6 @@ import RegistrationScreen from "./screens/auth/RegistrationScreen";
 import LoginScreen from "./screens/auth/LoginScreen";
 import Home from "./screens/Home";
 
-import CommentsScreen from "./screens/nestedScreens/CommentsScreen";
-import MapScreen from "./screens/nestedScreens/MapScreen";
-
 import PostsScreen from "./screens/mainScreen/PostsScreen";
 import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./screens/mainScreen/ProfileScreen";
