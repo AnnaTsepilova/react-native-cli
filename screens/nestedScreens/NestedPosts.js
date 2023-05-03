@@ -11,15 +11,41 @@ import {
 import { EvilIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
+import {
+  collection,
+  onSnapshot,
+  query,
+  getCountFromServer,
+} from "firebase/firestore";
+import { db } from "../../firebase/config";
+
 const NestedPosts = ({ route, navigation }) => {
   const [posts, setPosts] = useState([]);
-  // console.log("route.params", route.params);
+
+  const getAllPosts = async () => {
+    const q = query(collection(db, "posts"));
+
+    onSnapshot(q, async (querySnapshot) => {
+      const posts = await Promise.all(
+        querySnapshot.docs.map(async (doc) => {
+          const coll = collection(db, `posts/${doc.id}/comments`);
+          const snapshot = await getCountFromServer(coll);
+
+          return {
+            ...doc.data(),
+            postId: doc.id,
+            commentCount: snapshot.data().count,
+          };
+        })
+      );
+
+      setPosts(posts);
+    });
+  };
 
   useEffect(() => {
-    if (route.params) {
-      setPosts((prevState) => [...prevState, route.params]);
-    }
-  }, [route.params]);
+    getAllPosts();
+  }, []);
   console.log("posts", posts);
 
   return (
@@ -31,7 +57,7 @@ const NestedPosts = ({ route, navigation }) => {
           <View style={styles.postContainer}>
             <View>
               <Image style={styles.photo} source={{ uri: item.photo }} />
-              {/* <Text style={styles.title}>{item.title}</Text> */}
+              <Text style={styles.title}>{item.title}</Text>
               <View
                 style={{
                   flexDirection: "row",
@@ -62,10 +88,7 @@ const NestedPosts = ({ route, navigation }) => {
                 <View>
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate(
-                        "Map"
-                        // , { location: item.location }
-                      )
+                      navigation.navigate("Map", { location: item.location })
                     }
                     style={{ flexDirection: "row", alignItems: "center" }}
                   >
@@ -74,7 +97,7 @@ const NestedPosts = ({ route, navigation }) => {
                       size={24}
                       color="#BDBDBD"
                     />
-                    {/* <Text style={styles.place}>{item.place}</Text> */}
+                    <Text style={styles.place}>{item.place}</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -108,10 +131,15 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 11,
-
     fontFamily: "RobotoMedium",
     fontSize: 16,
     color: "#212121",
+  },
+  place: {
+    fontFamily: "RobotoRegular",
+    fontSize: 16,
+    color: "#212121",
+    textDecorationLine: "underline",
   },
 });
 

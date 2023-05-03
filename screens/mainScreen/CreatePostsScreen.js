@@ -3,7 +3,6 @@ import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { Camera } from "expo-camera";
 
-import { nanoid } from "nanoid";
 import { db, storage } from "../../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
@@ -27,8 +26,6 @@ import {
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 
 const CreatePostsScreen = ({ navigation }) => {
   const { id, email, nickname, avatar } = useSelector(selectUser);
@@ -72,7 +69,7 @@ const CreatePostsScreen = ({ navigation }) => {
   const uploadPhotoToServer = async () => {
     const response = await fetch(photo);
     const file = await response.blob();
-    const photoId = nanoid();
+    const photoId = "ph_" + Math.random() * 1000;
     const imagesRef = ref(storage, `postImages/${photoId}`);
 
     await uploadBytesResumable(imagesRef, file);
