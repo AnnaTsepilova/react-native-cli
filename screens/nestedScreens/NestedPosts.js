@@ -8,6 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/auth/authSelectors";
+
 import { EvilIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -20,6 +23,7 @@ import {
 import { db } from "../../firebase/config";
 
 const NestedPosts = ({ route, navigation }) => {
+  const { id, email, nickname, avatar } = useSelector(selectUser);
   const [posts, setPosts] = useState([]);
 
   const getAllPosts = async () => {
@@ -50,6 +54,21 @@ const NestedPosts = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.userInfo}>
+        <View style={styles.avatar}>
+          {avatar ? (
+            <Image style={styles.avatarImg} source={{ uri: avatar }} />
+          ) : (
+            <View
+              style={{ ...styles.avatarImg, backgroundColor: "#F6F6F6" }}
+            ></View>
+          )}
+        </View>
+        <View style={{ justifyContent: "center" }}>
+          <Text style={styles.nickname}>{nickname}</Text>
+          <Text style={styles.email}>{email}</Text>
+        </View>
+      </View>
       <FlatList
         data={posts}
         keyExtractor={(item, indx) => indx.toString()}
@@ -83,7 +102,7 @@ const NestedPosts = ({ route, navigation }) => {
                     color="#BDBDBD"
                     style={{ marginBottom: 6 }}
                   />
-                  {/* <Text style={styles.count}>{item.commentCount}</Text> */}
+                  <Text style={styles.count}>{item.commentCount}</Text>
                 </TouchableOpacity>
                 <View>
                   <TouchableOpacity
@@ -118,6 +137,36 @@ const styles = StyleSheet.create({
 
     backgroundColor: "#FFF",
   },
+
+  userInfo: {
+    flexDirection: "row",
+    marginBottom: 32,
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#BDBDBD",
+    marginRight: 8,
+    overflow: "hidden",
+  },
+  avatarImg: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: 16,
+  },
+  nickname: {
+    fontFamily: "RobotoBold",
+    fontSize: 13,
+    color: "#212121",
+  },
+  email: {
+    fontFamily: "RobotoRegular",
+    fontSize: 11,
+    color: "rgba(33, 33, 33, 0.8)",
+  },
   postContainer: { marginBottom: 34 },
   photo: {
     marginBottom: 8,
@@ -140,6 +189,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#212121",
     textDecorationLine: "underline",
+  },
+  count: {
+    fontFamily: "RobotoRegular",
+    fontSize: 16,
+    color: "#212121",
   },
 });
 
