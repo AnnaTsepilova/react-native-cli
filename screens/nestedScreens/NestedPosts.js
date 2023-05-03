@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -136,6 +136,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
 
     backgroundColor: "#FFF",
+    borderTopWidth: 1,
+    borderTopColor: "#BDBDBD",
   },
 
   userInfo: {

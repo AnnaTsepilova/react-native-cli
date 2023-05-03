@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { Camera } from "expo-camera";
@@ -172,6 +172,10 @@ const styles = StyleSheet.create({
     paddingBottom: 34,
     paddingLeft: 16,
     paddingRight: 16,
+
+    backgroundColor: "#FFF",
+    borderTopWidth: 1,
+    borderTopColor: "#BDBDBD",
   },
   cameraContainer: {
     position: "relative",
