@@ -12,9 +12,6 @@ import RegistrationScreen from "./screens/auth/RegistrationScreen";
 import LoginScreen from "./screens/auth/LoginScreen";
 import Home from "./screens/Home";
 
-import CommentsScreen from "./screens/nestedScreens/CommentsScreen";
-import MapScreen from "./screens/nestedScreens/MapScreen";
-
 import PostsScreen from "./screens/mainScreen/PostsScreen";
 import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./screens/mainScreen/ProfileScreen";
@@ -47,93 +44,91 @@ export const useRoute = (Auth) => {
   return (
     <MainTabs.Navigator
       screenOptions={{
-        // tabBarShowLabel: false,
-        // tabBarStyle: {
-        //   height: 83,
-        //   paddingTop: 9,
-        //   paddingRight: 70,
-        //   paddingLeft: 70,
-        // },
-        // tabBarItemStyle: {
-        //   width: 70,
-        //   height: 40,
-        //   borderRadius: 20,
-        // },
-        // tabBarActiveBackgroundColor: "#FF6C00",
-        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          height: 83,
+          paddingTop: 9,
+          paddingRight: 70,
+          paddingLeft: 70,
+        },
+        tabBarItemStyle: {
+          width: 70,
+          height: 40,
+          borderRadius: 20,
+        },
+        tabBarActiveBackgroundColor: "#FF6C00",
+        //headerShown: false,
       }}
       backBehavior="history"
     >
       <MainTabs.Screen
         options={{
-          // tabBarIcon: ({ focused, color, size }) => (
-          //   <AntDesign
-          //     name="appstore-o"
-          //     size={24}
-          //     color={focused ? "#ffffff" : "#BDBDBD"}
-          //   />
-          // ),
+          tabBarIcon: ({ focused, color, size }) => (
+            <AntDesign
+              name="appstore-o"
+              size={24}
+              color={focused ? "#ffffff" : "#BDBDBD"}
+            />
+          ),
 
           headerShown: false,
 
-          // headerRight: () => (
-          //   <TouchableOpacity style={{ marginRight: 16 }} activeOpacity={0.8}>
-          //     <MaterialIcons name="logout" size={24} color="#BDBDBD" />
-          //   </TouchableOpacity>
-          // ),
-          // headerTitleAlign: "center",
-          // headerTitleStyle: {
-          //   fontFamily: "RobotoMedium",
-          //   fontSize: 17,
-          //   color: "#212121",
-          // },
+          headerRight: () => (
+            <TouchableOpacity style={{ marginRight: 16 }} activeOpacity={0.8}>
+              <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+          ),
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontFamily: "RobotoMedium",
+            fontSize: 17,
+            color: "#212121",
+          },
         }}
-        name="Posts"
+        name="NestedPosts"
         component={PostsScreen}
       />
       <MainTabs.Screen
-        options={
-          {
-            // tabBarIcon: ({ focused, color, size }) => (
-            //   <AntDesign
-            //     name="plus"
-            //     size={focused ? 18 : 24}
-            //     color={focused ? "#ffffff" : "#BDBDBD"}
-            //   />
-            // ),
-            // headerLeft: () => (
-            //   <TouchableOpacity style={{ marginLeft: 20 }}>
-            //     <Ionicons name="arrow-back" size={24} color="#BDBDBD" />
-            //   </TouchableOpacity>
-            // ),
-            // headerTitleAlign: "center",
-            // headerTitleStyle: {
-            //   fontFamily: "RobotoMedium",
-            //   fontSize: 17,
-            //   lineHeight: 22,
-            //   color: "#212121",
-            // },
-          }
-        }
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <AntDesign
+              name="plus"
+              size={focused ? 18 : 24}
+              color={focused ? "#ffffff" : "#BDBDBD"}
+            />
+          ),
+          headerLeft: () => (
+            <TouchableOpacity style={{ marginLeft: 20 }}>
+              <Ionicons name="arrow-back" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+          ),
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontFamily: "RobotoMedium",
+            fontSize: 17,
+            lineHeight: 22,
+            color: "#212121",
+          },
+        }}
         name="Create"
         component={CreatePostsScreen}
       />
       <MainTabs.Screen
         options={{
-          // tabBarIcon: ({ focused, color, size }) => (
-          //   <Feather
-          //     name="user"
-          //     size={24}
-          //     color={focused ? "#ffffff" : "#BDBDBD"}
-          //   />
-          // ),
-          // headerTitleAlign: "center",
-          // headerTitleStyle: {
-          //   fontFamily: "RobotoMedium",
-          //   fontSize: 17,
-          //   lineHeight: 22,
-          //   color: "#212121",
-          // },
+          tabBarIcon: ({ focused, color, size }) => (
+            <Feather
+              name="user"
+              size={24}
+              color={focused ? "#ffffff" : "#BDBDBD"}
+            />
+          ),
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontFamily: "RobotoMedium",
+            fontSize: 17,
+            lineHeight: 22,
+            color: "#212121",
+          },
           headerShown: false,
         }}
         name="Profile"

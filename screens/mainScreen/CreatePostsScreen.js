@@ -1,7 +1,14 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { Camera } from "expo-camera";
+
+import { db, storage } from "../../firebase/config";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/auth/authSelectors";
 
 import {
   StyleSheet,
@@ -19,33 +26,21 @@ import {
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 
 const CreatePostsScreen = ({ navigation }) => {
+  const { id, email, nickname, avatar } = useSelector(selectUser);
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
+  const [location, setLocation] = useState(null);
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("");
+  const [error, setError] = useState("");
 
   const keyboardHide = () => {
     setIsShownKeyboard(false);
     Keyboard.dismiss();
-  };
-
-  const takePhoto = async () => {
-    const photo = await camera.takePictureAsync();
-
-    setPhoto(photo.uri);
-    console.log("photo", photo);
-    const location = await Location.getCurrentPositionAsync();
-    const coordinates = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    };
-    console.log("coordinates", coordinates);
   };
 
   useEffect(() => {
@@ -58,24 +53,55 @@ const CreatePostsScreen = ({ navigation }) => {
       if (loc.status !== "granted") {
         setErrorMsg("Permission to access location was denied");
       }
-
-      // let location = await Location.getCurrentPositionAsync({});
-      // setLocation(location);
     })();
   }, []);
 
+  const takePhoto = async () => {
+    const photo = await camera.takePictureAsync();
+
+    setPhoto(photo.uri);
+    console.log("photo", photo);
+    const location = await Location.getCurrentPositionAsync();
+    setLocation(location);
+    console.log("location", location);
+  };
+
+  const uploadPhotoToServer = async () => {
+    const response = await fetch(photo);
+    const file = await response.blob();
+    const photoId = "ph_" + Math.random() * 1000;
+    const imagesRef = ref(storage, `postImages/${photoId}`);
+
+    await uploadBytesResumable(imagesRef, file);
+    const url = await getDownloadURL(imagesRef);
+
+    return url;
+  };
+
+  const uploadPostToServer = async () => {
+    const photo = await uploadPhotoToServer();
+
+    try {
+      await addDoc(collection(db, "posts"), {
+        photo,
+        title,
+        place,
+        location: location.coords,
+        id,
+        email,
+        nickname,
+        avatar,
+      });
+    } catch (error) {
+      setError("Error uploading post: ", error.message);
+    }
+  };
+
   const onSubmit = async () => {
-    // const location = await Location.getCurrentPositionAsync({});
-    // const coords = {
-    //   latitude: location.coords.latitude,
-    //   longitude: location.coords.longitude,
-    // };
-    // console.log("coords", coords);
-    console.log("navigation", navigation);
-    navigation.navigate("NestedPosts", { photo });
-    //await uploadPost(coords);
-    setTitle("");
+    await uploadPostToServer();
+    navigation.navigate("Posts");
     setPhoto("");
+    setTitle("");
     setPlace("");
   };
 
@@ -146,6 +172,10 @@ const styles = StyleSheet.create({
     paddingBottom: 34,
     paddingLeft: 16,
     paddingRight: 16,
+
+    backgroundColor: "#FFF",
+    borderTopWidth: 1,
+    borderTopColor: "#BDBDBD",
   },
   cameraContainer: {
     position: "relative",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 
 import {
   StyleSheet,
@@ -12,27 +12,31 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/auth/authOperations";
+
 const initialState = {
-  name: "",
+  nickname: "",
   email: "",
   password: "",
 };
 
 export default function RegistrationScreen({ navigation }) {
-  const [state, setState] = useState(initialState);
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
+  const [state, setState] = useState(initialState);
+
+  const dispatch = useDispatch();
 
   const keyboardHide = () => {
     setIsShownKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(initialState);
   };
 
   const onSubmit = () => {
-    console.log("Form Data:", state);
+    console.log("submit RegistrationScreen", state);
+
+    dispatch(signUp(state));
     setState(initialState);
-    navigation.navigate("Home");
   };
 
   return (
@@ -55,10 +59,10 @@ export default function RegistrationScreen({ navigation }) {
               style={styles.input}
               placeholder="Login"
               placeholderTextColor="#BDBDBD"
-              value={state.name}
+              value={state.nickname}
               onFocus={() => setIsShownKeyboard(true)}
               onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, name: value }))
+                setState((prevState) => ({ ...prevState, nickname: value }))
               }
             />
             <TextInput
