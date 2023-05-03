@@ -7,14 +7,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useRoute } from "../router";
 
 import { isLoggedIn } from "../redux/auth/authOperations";
-import { selectIsAuth } from "../redux/auth/authSelectors";
+import { selectIsAuth, selectEmail } from "../redux/auth/authSelectors";
 
 export default function Main() {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
+  const email = useSelector(selectEmail);
 
   useEffect(() => {
     dispatch(isLoggedIn());
+    console.log("email selectEmail in Main", email);
   }, []);
 
   const routing = useRoute(isAuth);

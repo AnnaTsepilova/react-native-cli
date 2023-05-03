@@ -95,6 +95,7 @@ const authSlice = createSlice({
         state.avatar = action.payload.avatar;
       })
       .addCase(isLoggedIn.rejected, (state, action) => {
+        console.log("rejected isLoggedIn", action);
         state.isLoading = false;
         state.error = action.payload;
       });
