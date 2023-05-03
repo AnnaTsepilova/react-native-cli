@@ -27,7 +27,6 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import { db } from "../../firebase/config";
 import { selectUser } from "./../../redux/auth/authSelectors";
-//import { convertDate } from "../../helpers/convertDate";
 
 export default function CommentsScreen({ route }) {
   const { postId, uri } = route.params;
@@ -43,7 +42,7 @@ export default function CommentsScreen({ route }) {
         comment,
         nickname,
         avatar,
-        //created: Timestamp.fromDate(new Date()),
+        created: Timestamp.fromDate(new Date()),
       });
       Keyboard.dismiss();
       setComment("");
@@ -101,9 +100,9 @@ export default function CommentsScreen({ route }) {
                   <View style={styles.textContainer}>
                     <Text style={styles.text}>{item.comment}</Text>
 
-                    <Text style={styles.data(item.nickname === nickname)}>
-                      {/* {convertDate(item.created.toDate())} */}
-                    </Text>
+                    <Text
+                      style={styles.data(item.nickname === nickname)}
+                    ></Text>
                   </View>
                 </View>
               </View>
