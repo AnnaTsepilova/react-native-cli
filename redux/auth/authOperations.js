@@ -84,9 +84,11 @@ export const isLoggedIn = createAsyncThunk(
           avatar = user.photoURL;
         }
       });
+
       if (!email) {
         return thunkAPI.rejectWithValue("error.message", error.message);
       }
+
       return { displayName, email, avatar, id };
     } catch (error) {
       return thunkAPI.rejectWithValue("error.message", error.message);

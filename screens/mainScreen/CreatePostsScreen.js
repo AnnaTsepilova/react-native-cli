@@ -58,9 +58,6 @@ const CreatePostsScreen = ({ navigation }) => {
       if (loc.status !== "granted") {
         setErrorMsg("Permission to access location was denied");
       }
-
-      // let location = await Location.getCurrentPositionAsync({});
-      // setLocation(location);
     })();
   }, []);
 
@@ -72,7 +69,7 @@ const CreatePostsScreen = ({ navigation }) => {
     // };
     // console.log("coords", coords);
     console.log("navigation", navigation);
-    navigation.navigate("NestedPosts", { photo });
+    navigation.navigate("Posts", { photo });
     //await uploadPost(coords);
     setTitle("");
     setPhoto("");

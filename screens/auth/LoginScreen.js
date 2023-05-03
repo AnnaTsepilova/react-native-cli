@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 
 import {
   StyleSheet,
@@ -35,7 +35,6 @@ export default function LoginScreen({ navigation }) {
     console.log("submit LoginScreen", state);
     dispatch(signIn(state));
     setState(initialState);
-    //navigation.navigate("Home");
   };
 
   return (

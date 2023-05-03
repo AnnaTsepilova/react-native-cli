@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 
 import {
   StyleSheet,
@@ -37,7 +37,6 @@ export default function RegistrationScreen({ navigation }) {
 
     dispatch(signUp(state));
     setState(initialState);
-    //navigation.navigate("Home");
   };
 
   return (

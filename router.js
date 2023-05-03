@@ -60,7 +60,7 @@ export const useRoute = (Auth) => {
           borderRadius: 20,
         },
         tabBarActiveBackgroundColor: "#FF6C00",
-        headerShown: false,
+        //headerShown: false,
       }}
       backBehavior="history"
     >
@@ -88,7 +88,7 @@ export const useRoute = (Auth) => {
             color: "#212121",
           },
         }}
-        name="Posts"
+        name="NestedPosts"
         component={PostsScreen}
       />
       <MainTabs.Screen

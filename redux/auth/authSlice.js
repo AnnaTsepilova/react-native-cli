@@ -4,7 +4,7 @@ import {
   signUp,
   signIn,
   isLoggedIn,
-  logOut,
+  signOutUser,
   changeAvatar,
 } from "./authOperations";
 
@@ -54,39 +54,40 @@ const authSlice = createSlice({
       .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      .addCase(signOutUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(signOutUser.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuth = false;
+        state.avatar = "";
+        state.email = "";
+        state.id = "";
+        state.nickname = "";
+      })
+      .addCase(signOutUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(isLoggedIn.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(isLoggedIn.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuth = true;
+        state.email = action.payload.email;
+        state.nickname = action.payload.displayName;
+        state.id = action.payload.id;
+        state.avatar = action.payload.avatar;
+      })
+      .addCase(isLoggedIn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
-    //   .addCase(isLoggedIn.pending, (state) => {
-    //     state.isLoading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(isLoggedIn.fulfilled, (state, { payload }) => {
-    //     state.isLoading = false;
-    //     state.isAuth = true;
-    //     state.email = payload.email;
-    //     state.nickname = payload.displayName;
-    //     state.id = payload.id;
-    //     state.avatar = payload.avatar;
-    //   })
-    //   .addCase(isLoggedIn.rejected, (state, { payload }) => {
-    //     state.isLoading = false;
-    //     state.error = payload;
-    //   })
-    //   .addCase(logOut.pending, (state) => {
-    //     state.isLoading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(logOut.fulfilled, (state) => {
-    //     state.isLoading = false;
-    //     state.isAuth = false;
-    //     state.avatar = "";
-    //     state.email = "";
-    //     state.id = "";
-    //     state.nickname = "";
-    //   })
-    //   .addCase(logOut.rejected, (state, { payload }) => {
-    //     state.isLoading = false;
-    //     state.error = payload;
-    //   })
     //   .addCase(changeAvatar.pending, (state) => {
     //     state.isLoading = true;
     //     state.error = null;
