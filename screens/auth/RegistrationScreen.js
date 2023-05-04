@@ -26,6 +26,7 @@ const initialState = {
   nickname: "",
   email: "",
   password: "",
+  avatar: null,
 };
 
 export default function RegistrationScreen({ navigation }) {
@@ -41,9 +42,10 @@ export default function RegistrationScreen({ navigation }) {
     Keyboard.dismiss();
   };
 
-  const onSubmit = () => {
+  const onSubmit = (data) => {
     console.log("submit RegistrationScreen", state);
     data.avatar = image;
+    console.log("image avatar", image);
     dispatch(signUp(state));
     setState(initialState);
   };

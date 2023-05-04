@@ -6,7 +6,7 @@ export const uploadPhotoToServer = async () => {
   const response = await fetch(photo);
   const file = await response.blob();
   const photoId = "ph_" + Math.random() * 1000;
-  const imagesRef = ref(storage, `postImages/${photoId}`);
+  const imagesRef = ref(storage, `${folder}/${photoId}`);
 
   await uploadBytesResumable(imagesRef, file);
   const url = await getDownloadURL(imagesRef);
