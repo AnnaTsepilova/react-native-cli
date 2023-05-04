@@ -2,18 +2,21 @@ import React, { useState } from "react";
 
 import {
   StyleSheet,
-  View,
+  ImageBackground,
   KeyboardAvoidingView,
+  View,
   Platform,
   Text,
   TextInput,
+  ActivityIndicator,
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/auth/authOperations";
+import { selectIsLoading } from "../../redux/auth/authSelectors";
 
 const initialState = {
   email: "",
@@ -23,6 +26,7 @@ const initialState = {
 export default function LoginScreen({ navigation }) {
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
+  const isLoading = useSelector(selectIsLoading);
 
   const dispatch = useDispatch();
 
@@ -39,67 +43,88 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      <ImageBackground
+        source={require("../../assets/img/mainBg.jpg")}
+        resizeMode="cover"
+        style={styles.background}
       >
-        <View
-          style={{
-            ...styles.formContainer,
-            //width: dimensions,
-            //marginBottom: isShownKeyboard ? 0 : 0,
-          }}
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.select({
+            ios: -230,
+            android: -40,
+          })}
         >
-          <View style={styles.avatarContainer}></View>
-          <Text style={styles.formTitle}>Sign In</Text>
+          <View
+            style={{
+              ...styles.formContainer,
+              //width: dimensions,
+              //marginBottom: isShownKeyboard ? 0 : 0,
+            }}
+          >
+            <Text style={styles.formTitle}>Sign In</Text>
 
-          <View style={styles.form}>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="#BDBDBD"
-              value={state.email}
-              onFocus={() => setIsShownKeyboard(true)}
-              onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, email: value }))
-              }
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="#BDBDBD"
-              value={state.password}
-              secureTextEntry={true}
-              onFocus={() => setIsShownKeyboard(true)}
-              onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, password: value }))
-              }
-            />
-            <TouchableOpacity
-              style={styles.button}
-              activeOpacity={0.8}
-              onPress={onSubmit}
-            >
-              <Text style={styles.btnTitle}>SIGN IN</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ alignSelf: "center" }}
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate("Registration")}
-            >
-              <Text style={styles.signUp}>
-                {" "}
-                New to application?
-                <Text style={styles.signUp}> Sign Up</Text>
-              </Text>
-            </TouchableOpacity>
+            <View style={styles.form}>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#BDBDBD"
+                value={state.email}
+                onFocus={() => setIsShownKeyboard(true)}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, email: value }))
+                }
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#BDBDBD"
+                value={state.password}
+                secureTextEntry={true}
+                onFocus={() => setIsShownKeyboard(true)}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, password: value }))
+                }
+              />
+              {isLoading ? (
+                <ActivityIndicator
+                  size="large"
+                  color="#FF6C00"
+                  style={{ marginTop: 27, marginBottom: 16 }}
+                />
+              ) : (
+                <TouchableOpacity
+                  style={styles.button}
+                  activeOpacity={0.8}
+                  onPress={onSubmit}
+                >
+                  <Text style={styles.btnTitle}>SIGN IN</Text>
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity
+                style={{ alignSelf: "center" }}
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate("Registration")}
+              >
+                <Text style={styles.signUp}>
+                  {" "}
+                  New to application?
+                  <Text style={styles.signUp}> Sign Up</Text>
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
   formContainer: {
     paddingBottom: 78,
     paddingHorizontal: 16,
@@ -110,16 +135,6 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-  },
-
-  avatarContainer: {
-    marginTop: -60,
-    alignSelf: "center",
-    width: 120,
-    height: 120,
-
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
   },
 
   form: {

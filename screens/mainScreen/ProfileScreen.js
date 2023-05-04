@@ -21,11 +21,11 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { pickImage } from "../../helpers/pickImage";
 
 import { selectUser } from "./../../redux/auth/authSelectors";
 import { changeAvatar, signOutUser } from "../../redux/auth/authOperations";
 import { db } from "../../firebase/config";
-//import { pickImage } from "../../firebase/methods/pickImage";
 
 export default function ProfileScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -62,10 +62,10 @@ export default function ProfileScreen({ navigation }) {
     getPosts();
   }, []);
 
-  // const newAvatar = async () => {
-  //   await pickImage(setPhoto);
-  //   dispatch(changeAvatar(photo));
-  // };
+  const newAvatar = async () => {
+    await pickImage(setPhoto);
+    dispatch(changeAvatar(photo));
+  };
 
   return (
     <View style={styles.container}>
@@ -79,10 +79,7 @@ export default function ProfileScreen({ navigation }) {
               {avatar && (
                 <Image style={styles.avatar} source={{ uri: avatar }} />
               )}
-              <TouchableOpacity
-                style={styles.icon}
-                //onPress={newAvatar}
-              >
+              <TouchableOpacity style={styles.icon} onPress={newAvatar}>
                 <MaterialIcons name="close" size={20} color="#E8E8E8" />
               </TouchableOpacity>
             </View>

@@ -8,24 +8,22 @@ import {
   signOut,
 } from "firebase/auth";
 
+import { uploadAvatar } from "../../firebase/uploadAvatar";
+
 import { auth } from "../../firebase/config";
 
 export const signUp = createAsyncThunk(
   "auth/signUp",
   async (data, thunkAPI) => {
     try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
 
       const { uid } = auth.currentUser;
 
       //console.log("auth.currentUser from signUp operations", auth.currentUser);
 
       const url =
-        data.avatar && (await uploadPhoto(data.avatar, "avatars", uid));
+        data.avatar && (await uploadAvatar(data.avatar, "avatars", uid));
 
       await updateProfile(auth.currentUser, {
         displayName: data.nickname,
@@ -87,6 +85,25 @@ export const isLoggedIn = createAsyncThunk(
       return { displayName, email, avatar, id };
     } catch (error) {
       return thunkAPI.rejectWithValue("error.message", error.message);
+    }
+  }
+);
+
+export const changeAvatar = createAsyncThunk(
+  "auth/changeAvatar",
+  async (data, thunkAPI) => {
+    try {
+      const { uid } = auth.currentUser;
+      const url = await uploadAvatar(data, "avatars", uid);
+
+      await updateProfile(auth.currentUser, {
+        photoURL: url,
+      });
+      const { photoURL } = auth.currentUser;
+
+      return { photoURL };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

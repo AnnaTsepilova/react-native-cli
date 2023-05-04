@@ -23,14 +23,8 @@ export default function Main() {
 
   return (
     <NavigationContainer>
-      <ImageBackground
-        source={require("../assets/img/mainBg.jpg")}
-        resizeMode="cover"
-        style={styles.background}
-      >
-        {routing}
-        <StatusBar style="auto" />
-      </ImageBackground>
+      {routing}
+      <StatusBar style="auto" />
     </NavigationContainer>
   );
 }
