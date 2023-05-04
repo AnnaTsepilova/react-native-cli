@@ -8,6 +8,8 @@ import {
   signOut,
 } from "firebase/auth";
 
+import { uploadPhotoToServer } from "../../helpers/uploadPhotoToServer";
+
 import { auth } from "../../firebase/config";
 
 export const signUp = createAsyncThunk(
@@ -25,7 +27,7 @@ export const signUp = createAsyncThunk(
       //console.log("auth.currentUser from signUp operations", auth.currentUser);
 
       const url =
-        data.avatar && (await uploadPhoto(data.avatar, "avatars", uid));
+        data.avatar && (await uploadPhotoToServer(data.avatar, "avatars", uid));
 
       await updateProfile(auth.currentUser, {
         displayName: data.nickname,
@@ -87,6 +89,25 @@ export const isLoggedIn = createAsyncThunk(
       return { displayName, email, avatar, id };
     } catch (error) {
       return thunkAPI.rejectWithValue("error.message", error.message);
+    }
+  }
+);
+
+export const changeAvatar = createAsyncThunk(
+  "auth/changeAvatar",
+  async (data, { rejectWithValue }) => {
+    try {
+      const { uid } = auth.currentUser;
+      const url = await uploadPhotoToServer(data, "avatars", uid);
+
+      await updateProfile(auth.currentUser, {
+        photoURL: url,
+      });
+      const { photoURL } = auth.currentUser;
+
+      return { photoURL };
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
