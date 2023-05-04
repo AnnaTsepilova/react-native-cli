@@ -47,7 +47,6 @@ export default function PostsScreen() {
           headerTitleStyle: {
             fontFamily: "RobotoMedium",
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
           },
         }}
@@ -59,7 +58,6 @@ export default function PostsScreen() {
           headerTitleAlign: "center",
           headerTitleStyle: {
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
             fontFamily: "RobotoMedium",
           },
@@ -72,7 +70,6 @@ export default function PostsScreen() {
           headerTitleAlign: "center",
           headerTitleStyle: {
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
             fontFamily: "RobotoMedium",
           },

@@ -248,7 +248,6 @@ const styles = StyleSheet.create({
 
     fontFamily: "RobotoMedium",
     fontSize: 16,
-    lineHeight: 18.75,
     color: "#212121",
   },
   locationIcon: {

@@ -106,7 +106,6 @@ export const useRoute = (Auth) => {
           headerTitleStyle: {
             fontFamily: "RobotoMedium",
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
           },
         }}
@@ -126,7 +125,6 @@ export const useRoute = (Auth) => {
           headerTitleStyle: {
             fontFamily: "RobotoMedium",
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
           },
           headerShown: false,

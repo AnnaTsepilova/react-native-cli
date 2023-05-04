@@ -218,7 +218,6 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoRegular",
     color: "#212121",
     fontSize: 16,
-    lineHeight: 1.18,
   },
 
   button: {

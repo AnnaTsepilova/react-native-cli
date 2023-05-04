@@ -205,7 +205,6 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: "RobotoMedium",
     fontSize: 30,
-    lineHeight: 35,
     color: "#212121",
     textAlign: "center",
 
@@ -222,21 +221,18 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "RobotoMedium",
     fontSize: 16,
-    lineHeight: 19,
     color: "#212121",
     marginBottom: 11,
   },
   place: {
     fontFamily: "RobotoRegular",
     fontSize: 16,
-    lineHeight: 19,
     color: "#212121",
     textDecorationLine: "underline",
   },
   count: {
     fontFamily: "RobotoRegular",
     fontSize: 16,
-    lineHeight: 19,
     color: "#212121",
   },
   commentIcon: {

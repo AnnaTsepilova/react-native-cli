@@ -59,7 +59,6 @@ export default function Home({ navigation }) {
           headerTitleStyle: {
             fontFamily: "RobotoMedium",
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
           },
         }}
@@ -85,7 +84,6 @@ export default function Home({ navigation }) {
             // marginBottom: 11,
             fontFamily: "RobotoMedium",
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
           },
         }}
@@ -105,7 +103,6 @@ export default function Home({ navigation }) {
           headerTitleStyle: {
             fontFamily: "RobotoMedium",
             fontSize: 17,
-            lineHeight: 22,
             color: "#212121",
           },
         }}
