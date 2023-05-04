@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+//import * as Crypto from "expo-crypto";
+import { nanoid } from "nanoid";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { Camera } from "expo-camera";
@@ -69,7 +71,7 @@ const CreatePostsScreen = ({ navigation }) => {
   const uploadPhotoToServer = async () => {
     const response = await fetch(photo);
     const file = await response.blob();
-    const photoId = "ph_" + Math.random() * 1000;
+    const photoId = nanoid();
     const imagesRef = ref(storage, `postImages/${photoId}`);
 
     await uploadBytesResumable(imagesRef, file);
