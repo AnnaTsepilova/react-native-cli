@@ -51,17 +51,11 @@ export default function LoginScreen({ navigation }) {
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.select({
-            ios: -230,
-            android: -40,
+            ios: -180,
+            android: -60,
           })}
         >
-          <View
-            style={{
-              ...styles.formContainer,
-              //width: dimensions,
-              //marginBottom: isShownKeyboard ? 0 : 0,
-            }}
-          >
+          <View style={styles.formContainer}>
             <Text style={styles.formTitle}>Sign In</Text>
 
             <View style={styles.form}>

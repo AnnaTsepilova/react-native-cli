@@ -61,16 +61,10 @@ export default function RegistrationScreen({ navigation }) {
           behavior={Platform.OS == "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.select({
             ios: -170,
-            android: -100,
+            android: -70,
           })}
         >
-          <View
-            style={{
-              ...styles.formContainer,
-              //width: dimensions,
-              //marginBottom: isShownKeyboard ? 0 : 0,
-            }}
-          >
+          <View style={styles.formContainer}>
             <View style={styles.avatarContainer}>
               {image && <Image source={{ uri: image }} style={styles.avatar} />}
               <TouchableOpacity
